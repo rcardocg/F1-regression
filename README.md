@@ -1,4 +1,4 @@
-# How can I determine how an F1 race will end?
+# ¿Cómo puedo determinar el resultado de una carrera de Formula 1?
 
 Proyecto de regresión lineal sobre resultados de carreras de F1 (dataset "Formula 1 World Championship 1950-2024" de Kaggle).
 
