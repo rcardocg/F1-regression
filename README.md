@@ -1,7 +1,7 @@
 # ¿Cómo puedo determinar el resultado de una carrera de Formula 1?
 
 Proyecto de regresión lineal sobre resultados de carreras de F1 (dataset "Formula 1 World Championship 1950-2024" de Kaggle).
-
+[English version](enREADME.md)
 ---
 
 # Revisión de la justificación y conclusiones del informe
