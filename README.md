@@ -1,7 +1,21 @@
+# Índice
+
+1. [¿Cómo puedo determinar el resultado de una carrera de Formula 1?](#cómo-puedo-determinar-el-resultado-de-una-carrera-de-formula-1)
+2. [Revisión de la justificación y conclusiones del informe](#revisión-de-la-justificación-y-conclusiones-del-informe)
+   * 2.1. [Contexto: qué hizo realmente el notebook](#contexto-qué-hizo-realmente-el-notebook)
+   * 2.2. [Métricas](#métricas)
+   * 2.3. [Justificación](#justificación)
+   * 2.4. [Conclusiones](#conclusiones)
+   * 2.5. [Nota sobre el notebook](#nota-sobre-el-notebook)
+3. [Glosario de Términos](#glosario-de-términos)
+
+---
+
 # ¿Cómo puedo determinar el resultado de una carrera de Formula 1?
 
 Proyecto de regresión lineal sobre resultados de carreras de F1 (dataset "Formula 1 World Championship 1950-2024" de Kaggle).
 [English version](enREADME.md)
+
 ---
 
 # Revisión de la justificación y conclusiones del informe
@@ -26,8 +40,8 @@ El notebook entrenó **solo dos modelos**:
 | Accuracy* | 0.830 | 0.837 |
 | Precisión** | 0.597 | 0.634 |
 
-*Accuracy definida en el notebook como `1 − MAE/rango` (no es exactitud de clasificación).
-**Precisión definida como coeficiente de correlación entre real y predicho (no es precisión de clasificación). Estas definiciones no son estándar y no deben interpretarse como tales.
+\*Accuracy definida en el notebook como `1 − MAE/rango` (no es exactitud de clasificación).
+\*\*Precisión definida como coeficiente de correlación entre real y predicho (no es precisión de clasificación). Estas definiciones no son estándar y no deben interpretarse como tales.
 
 ## Métricas
 
@@ -65,3 +79,23 @@ El notebook entrenó **solo dos modelos**:
 ## Nota sobre el notebook
 
 El "Modelo Simple (3 variables)" del notebook en realidad usa 2 predictoras (`grid`, `total_pit_time`) más la constante; el "Modelo complejo (13 variables)" usa 12 predictoras más la constante. Los 19 features de ingeniería (p. ej. `avg_pit_time`, `pit_time_log1p`, `grid_x_pits`, `pit_stops_per_10laps`) se construyeron pero **ninguno se usó en los modelos finales**; fueron útiles solo como etapa exploratoria del cribado de variables. Además, el PDF incluye una errata: "transformación logarítmoca" → "logarítmica".
+
+---
+
+# Glosario de Términos
+
+* **Accuracy (en este contexto):** Métrica adaptada calculada como $1 - \frac{\text{MAE}}{\text{rango}}$. Mide la cercanía relativa del error respecto al rango total de posiciones de la carrera, pero **no** equivale a la exactitud de clasificación binaria estándar.
+* **Constante (Intercepto / Ordenada al origen):** Término constante en el modelo de regresión lineal que representa el valor predicho de la variable dependiente cuando todas las variables predictoras son iguales a cero.
+* **Count_pit_stops:** Variable cuantitativa que indica la cantidad total de paradas en boxes (*pits*) realizadas por un piloto durante una carrera.
+* **Cribado de p-values:** Proceso exploratorio de selección de características (*feature selection*) donde se evalúan las p-values individuales de múltiples variables para determinar cuáles tienen significancia estadística antes de incluirlas en el modelo final.
+* **Grid:** Posición de salida en la parrilla obtenida por el piloto en la sesión de clasificación previa a la carrera.
+* **MAE (Mean Absolute Error / Error Absoluto Medio):** Promedio de las diferencias absolutas entre las posiciones reales finales y las predichas. Indica cuánto se equivoca el modelo en promedio (en número de posiciones).
+* **p-value (Valor p):** Métrica de probabilidad para evaluar la significancia estadística. Un p-value muy bajo ($p < 0.05$) indica que la variable tiene una relación estadísticamente significativa con la posición final.
+* **Precisión (en este contexto):** Coeficiente de correlación lineal ($r$) entre los valores reales obtenidos y las predicciones del modelo. No representa la precisión estadística estándar usada en modelos de clasificación.
+* **R² (Coeficiente de Determinación):** Proporción de la varianza total de la posición final que es explicada por las variables predictoras del modelo. Un $R^2$ de $0.401$ significa que el modelo explica el $40.1\%$ de la variabilidad.
+* **R² Ajustado:** Variante del $R^2$ que penaliza la inclusión de variables predictoras que no aportan un valor explicativo significativo al modelo, evitando el sobreajuste artificial.
+* **RMSE (Root Mean Squared Error / Raíz del Error Cuadrático Medio):** Métrica de error que penaliza de forma más severa las desviaciones o errores grandes en las predicciones en comparación con el MAE.
+* **Sobreajuste (Overfitting):** Fenómeno en el cual un modelo memoriza el conjunto de datos de entrenamiento (*train*) y pierde capacidad de generalizar con datos no vistos (*validation/test*).
+* **Total_pit_time:** Tiempo total acumulado (en segundos o milisegundos) que un vehículo pasa dentro de la zona de boxes (*pit lane*) a lo largo de la carrera.
+* **Variable Dummy (Indicadora):** Variable binaria ($0$ o $1$) utilizada para incorporar categorías cualitativas (como escuderías o pilotos específicos) en un modelo cuantitativo de regresión lineal.
+* **VIF (Variance Inflation Factor / Factor de Inflación de la Varianza):** Métrica utilizada para detectar y medir la multicolinealidad (alta correlación y redundancia) entre variables independientes en un modelo de regresión.
